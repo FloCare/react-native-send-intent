@@ -264,9 +264,12 @@ public class RNSendIntentModule extends ReactContextBaseJavaModule {
       Intent sendIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumberString.trim()));
       sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+      String title = "Call using";
+      Intent chooser = Intent.createChooser(sendIntent, title);
+
       //Check that an app exists to receive the intent
       if (sendIntent.resolveActivity(this.reactContext.getPackageManager()) != null) {
-        this.reactContext.startActivity(sendIntent);
+        this.reactContext.startActivity(chooser);
       }
     }
 
